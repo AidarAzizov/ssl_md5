@@ -25,8 +25,8 @@ static BOOL	AllocatedDataInit(t_data *data, BOOL is_stdin)
 	data->payload = (uint8_t*)malloc(sizeof(uint8_t));
 	if (!data->payload) return print_and_exit(ERR_ALLOC, PLUG, FALSE);
 
-	data->next = NULL;
-	data->is_stdin = is_stdin;
+	ft_memset(data->payload, 0, 1);
+	data->next = NULL; data->is_stdin = is_stdin;
 	return TRUE;
 }
 
@@ -115,30 +115,7 @@ static BOOL read_fd(int fd, const char *filename, t_env *env, BOOL is_stdin)
 	if (!data->payload_name) return print_and_exit(ERR_ALLOC, PLUG, FALSE);
     ft_strcpy(data->payload_name, filename); data->payload_name[ft_strlen(filename)] = '\0';
 
-	if (!data->payload)
-		return AllocatedDataInit(data, is_stdin);
-	return TRUE;
-}
-
-static BOOL EmplaceFirstStdinIfExist(t_env* env)
-{
-	t_data *where_from = NULL;
-	t_data *data = env->data;
-
-	while (data)
-	{
-		if (!where_from && data->is_stdin)
-			where_from = data;
-		else if (data->is_stdin)
-		{
-			if (data->payload) free(data->payload);
-			data->payload = (uint8_t*)malloc(sizeof(char) * (where_from->payload_len + 1));
-            if (!data->payload) return print_and_exit(ERR_ALLOC, PLUG, FALSE);
-            ft_memcpy(data->payload, where_from->payload, where_from->payload_len);
-			data->payload_len = where_from->payload_len; data->payload[data->payload_len] = '\0';
-		}
-		data = data->next;
-	}
+	if (!data->payload) return AllocatedDataInit(data, is_stdin);
 	return TRUE;
 }
 
@@ -188,5 +165,5 @@ BOOL parse(int argc, char *argv[], t_env* env)
 	{
 		if (!read_fd(0, "STDIN", env, TRUE)) return FALSE;
 	}
-	return EmplaceFirstStdinIfExist(env);
+	return TRUE;
 }

@@ -43,7 +43,6 @@ static void print_only_hash(t_data *data)
 static void print_only_body(t_data *data)
 {
     write(1, data->payload, ft_strlen((char*)data->payload));
-    write(1, " ", 1);
 }
 
 void PrintHashes(t_env *env)
