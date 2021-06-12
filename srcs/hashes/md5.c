@@ -1,4 +1,4 @@
-﻿#include "../includes/ft_ssl.h"
+﻿#include "../../includes/ft_ssl.h"
 
 #define ROUND_COUNT 64
 #define ONE_ROUND_EAT_BYTE 64
@@ -141,10 +141,10 @@ void LaunchResolveRound(t_md5 *md5)
 	}
 }
 
-BOOL	md5(t_env *env)
+BOOL	md5(t_env_hash *env)
 {
-	char	*hex_char = "0123456789abcdef";
-	t_data		*head = env->data;
+	char		*hex_char = "0123456789abcdef";
+	t_data_hash	*head = env->data;
 
 	ft_strcpy(env->hashname_uppercase, "MD5");
     ft_strcpy(env->hashname_lowercase, "md5");
@@ -160,12 +160,12 @@ BOOL	md5(t_env *env)
 			LaunchResolveRound(&md5);
 			free(md5.prepared_message);
 
-            uint8_t		hash[16];
-            ft_memset(hash, 0, sizeof(hash));
-            ft_memcpy(&hash[0], &md5.A, sizeof(md5.A));
-            ft_memcpy(&hash[4], &md5.B, sizeof(md5.B));
-            ft_memcpy(&hash[8], &md5.C, sizeof(md5.C));
-            ft_memcpy(&hash[12], &md5.D, sizeof(md5.D));
+			uint8_t		hash[16];
+			ft_memset(hash, 0, sizeof(hash));
+			ft_memcpy(&hash[0], &md5.A, sizeof(md5.A));
+			ft_memcpy(&hash[4], &md5.B, sizeof(md5.B));
+			ft_memcpy(&hash[8], &md5.C, sizeof(md5.C));
+			ft_memcpy(&hash[12], &md5.D, sizeof(md5.D));
 			int	i = 0; int j = 0;
 			while (i < 16)
 			{

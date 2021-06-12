@@ -1,9 +1,10 @@
 NAME = ft_ssl
 
 
- FLAGS = -Wall -Wextra -Werror
+ FLAGS = -O0#-Wall -Wextra -Werror
 
- FUNC = main md5 parse print sha256 utils helpers
+ FUNC = main utils helpers hashes/md5 hashes/parse hashes/print hashes/sha256 \
+ 		overcodes/base64 overcodes/print overcodes/parse
 
  HEADER = -I includes/
 
@@ -22,6 +23,8 @@ all: .PHONY $(NAME)
 
 .PHONY:
 	@mkdir -p build
+	@mkdir -p build/hashes
+	@mkdir -p build/overcodes
 
 
 $(NAME): $(OBJ)

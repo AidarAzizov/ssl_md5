@@ -1,4 +1,4 @@
-#include "../includes/ft_ssl.h"
+#include "../../includes/ft_ssl.h"
 
 static const char *error_messages[5] =
 {
@@ -9,7 +9,7 @@ static const char *error_messages[5] =
         "md5: option requires an argument -- s"
 };
 
-static void print_wrong_command(t_env *env, t_data *data)
+static void print_wrong_command(t_env_hash *env, t_data_hash *data)
 {
     write(1, "ft_ssl: ", ft_strlen("ft_ssl: "));
     write (1, env->hashname_lowercase, ft_strlen(env->hashname_lowercase));
@@ -19,7 +19,7 @@ static void print_wrong_command(t_env *env, t_data *data)
     write(1, data->err.error_message, ft_strlen(data->err.error_message));
 }
 
-static void print_classic_hash_str(t_env *env, t_data *data)
+static void print_classic_hash_str(t_env_hash *env, t_data_hash *data)
 {
     write(1, env->hashname_uppercase, ft_strlen(env->hashname_uppercase));
     write(1, " (", 2);
@@ -28,26 +28,26 @@ static void print_classic_hash_str(t_env *env, t_data *data)
     write(1, data->hash, ft_strlen(data->hash));
 }
 
-static void print_flag_r(t_data *data)
+static void print_flag_r(t_data_hash *data)
 {
     write(1, data->hash, ft_strlen(data->hash));
     write(1, " " , 1);
     write(1, data->payload_name, ft_strlen(data->payload_name));
 }
 
-static void print_only_hash(t_data *data)
+static void print_only_hash(t_data_hash *data)
 {
     write(1, data->hash, ft_strlen(data->hash));
 }
 
-static void print_only_body(t_data *data)
+static void print_only_body(t_data_hash *data)
 {
     write(1, data->payload, ft_strlen((char*)data->payload));
 }
 
-void PrintHashes(t_env *env)
+void PrintHash(t_env_hash *env)
 {
-    t_data *data = env->data;
+    t_data_hash *data = env->data;
 
     while (data)
     {

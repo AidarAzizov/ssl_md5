@@ -1,4 +1,4 @@
-#include "../includes/ft_ssl.h"
+#include "../../includes/ft_ssl.h"
 
 static const uint32_t k[64] =
 {
@@ -110,10 +110,10 @@ static BOOL LaunchResolveRound(t_sha256 *sha256)
 }
 
 
-BOOL sha256(t_env *env)
+BOOL sha256(t_env_hash *env)
 {
 	const char	hex_char[17] = "0123456789abcdef";
-	t_data		*head = env->data;
+	t_data_hash	*head = env->data;
 	uint8_t		hash[32];
 
     ft_strcpy(env->hashname_uppercase, "SHA256");
